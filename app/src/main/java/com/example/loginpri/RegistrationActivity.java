@@ -53,11 +53,12 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                 //       if(task.isSuccessful()) {
-                   //         Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                     //       startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                        if(task.isSuccessful()) {
+                           Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                           startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
 
-                       // }else{Toast.makeText(RegistrationActivity.this, "Registration failure", Toast.LENGTH_SHORT) .show();
+                        }
+                         else{Toast.makeText(RegistrationActivity.this, "Registration failure", Toast.LENGTH_SHORT) .show();}
 
                         }
                     });
@@ -98,5 +99,5 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         }
-    }
+    }      //Braces extra
 
