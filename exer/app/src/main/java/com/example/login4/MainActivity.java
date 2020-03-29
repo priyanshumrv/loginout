@@ -50,10 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        if(user != null){
-            finish();
-            startActivity(new Intent(MainActivity.this, SecondActivity.class));
-        }
+
+         // instant login disabled
+       // if(user != null){
+
+       //     finish();
+         //   startActivity(new Intent(MainActivity.this, SecondActivity.class));
+       // }
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +87,9 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())    {
                     progressDialog.dismiss();
-                    Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainActivity.this, SecondActivity.class));
+                  //  Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, SecondActivity.class));
+                    checkEmailVerification();
                 }else{
                     Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
 
@@ -101,5 +105,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-}
+
+    private void checkEmailVerification(){
+        FirebaseUser firebaseUser =  firebaseAuth.getInstance().getCurrentUser();
+        Boolean emailflag = firebaseUser.isEmailVerified();
+
+        if(emailflag) {
+            finish();
+            startActivity(new Intent(MainActivity.this, SecondActivity.class));
+        }else{
+                Toast.makeText(this, "verify your Email", Toast.LENGTH_LONG).show();
+                firebaseAuth.signOut();
+            }
+        }
+    }
+
+
 
